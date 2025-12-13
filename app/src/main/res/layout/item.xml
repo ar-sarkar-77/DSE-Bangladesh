@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="3dp"
-    app:cardBackgroundColor="?attr/colorSurface">
+    android:layout_marginVertical="@dimen/_4sdp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_8sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical">
+        android:padding="@dimen/_8sdp">
 
         <!-- Logo -->
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
             android:background="@drawable/bg_circle_surface"
-            android:padding="6dp"
             android:src="@drawable/ic_company"
             android:tint="?attr/colorPrimary" />
 
@@ -31,46 +28,43 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_weight="1"
-            android:layout_marginStart="12dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtCompany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AAMRANET"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface"/>
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                android:id="@+id/imgArrow"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/bg_circle_surface"
-                android:padding="6dp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:src="@drawable/ic_up_arrow"
-                android:tint="?attr/colorPositive" />
+                    android:id="@+id/imgArrow"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/bg_circle_surface"
+                    android:src="@drawable/ic_up_arrow"
+                    android:tint="?attr/colorPositive" />
 
                 <TextView
                     android:id="@+id/txtChange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:text="+1.25%"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="-4dp"
-                    android:textColor="?attr/colorPositive"/>
-
+                    android:textColor="?attr/colorPositive"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -79,37 +73,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price 45.20"
-                android:textSize="13sp"
-                android:layout_marginTop="2dp"
-                android:textColor="?attr/colorPositive"/>
+                android:textColor="?attr/colorPositive"
+                android:textSize="@dimen/_14ssp" />
+
             <TextView
-                android:id="@+id/txtChange"
+                android:id="@+id/txtChangePercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:text="+1.25%"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:layout_marginTop="2dp"
-                android:textColor="?attr/colorPositive"/>
+                android:textColor="?attr/colorPositive"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Favorite -->
+
         <ImageView
             android:id="@+id/imgFav"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:src="@drawable/ic_star"
-            android:tint="?attr/colorPrimary"/>
+            android:tint="?attr/colorPrimary" />
 
         <ImageView
             android:id="@+id/imgNotification"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:src="@drawable/ic_notification"
-            android:tint="?attr/colorPrimary"
-            android:layout_marginStart="@dimen/_8sdp"
-            />
-
+            android:tint="?attr/colorPrimary" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

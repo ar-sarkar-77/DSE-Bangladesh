@@ -56,4 +56,7 @@ dependencies {
     implementation("com.intuit.sdp:sdp-android:1.1.1")
     implementation("com.intuit.ssp:ssp-android:1.1.1")
 
+    // volley
+    implementation(libs.volley)
+
 }
