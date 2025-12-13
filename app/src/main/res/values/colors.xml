@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Basic -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- ===================== -->
+    <!-- Material 3 LIGHT -->
+    <!-- ===================== -->
+    <color name="md_theme_light_primary">#1E88E5</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_onSurface">#1C1B1F</color>
+
+    <color name="md_theme_light_surfaceVariant">#F2F2F2</color>
+    <color name="md_theme_light_onSurfaceVariant">#5F5F5F</color>
+
+    <!-- ===================== -->
+    <!-- Material 3 DARK -->
+    <!-- ===================== -->
+    <color name="md_theme_dark_primary">#90CAF9</color>
+    <color name="md_theme_dark_onPrimary">#0D47A1</color>
+
+    <color name="md_theme_dark_surface">#121212</color>
+    <color name="md_theme_dark_onSurface">#E6E1E5</color>
+
+    <color name="md_theme_dark_surfaceVariant">#1E1E1E</color>
+    <color name="md_theme_dark_onSurfaceVariant">#B3B3B3</color>
+
+    <!-- ===================== -->
+    <!-- Stock Change Colors -->
+    <!-- ===================== -->
+    <color name="green_positive">#2E7D32</color>
+    <color name="red_negative">#C62828</color>
+
+    <color name="green_positive_night">#4CAF50</color>
+    <color name="red_negative_night">#EF5350</color>
+
 </resources>
