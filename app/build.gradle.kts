@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -58,5 +60,9 @@ dependencies {
 
     // volley
     implementation(libs.volley)
+
+    // room database
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
 
 }

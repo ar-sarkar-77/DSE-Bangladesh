@@ -73,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price 45.20"
+                android:textStyle="bold"
                 android:textColor="?attr/colorPositive"
                 android:textSize="@dimen/_14ssp" />
 

@@ -1,4 +1,4 @@
-package com.anondo.dsebangladesh
+package com.anondo.dsebangladesh.data.onmodels
 
 data class Stock_Data_Class (
     val id : Int,

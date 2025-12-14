@@ -1,18 +1,16 @@
-package com.anondo.dsebangladesh
+package com.anondo.dsebangladesh.views.activity
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.anondo.dsebangladesh.data.onmodels.Stock_Data_Class
 import com.anondo.dsebangladesh.databinding.ActivityMainBinding
+import com.anondo.dsebangladesh.views.adapter.StockAdapter
 import org.json.JSONArray
-import java.sql.Time
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,12 +66,21 @@ class MainActivity : AppCompatActivity() {
                 val change_percent = jsonObject.getString("change_percent") // string
                 val time = jsonObject.getString("time") // timestamp string
 
-                dataList.add(Stock_Data_Class(id.toInt(), name, price.toString(), change_price.toString(), change_percent, time))
+                dataList.add(
+                    Stock_Data_Class(
+                        id.toInt(),
+                        name,
+                        price.toString(),
+                        change_price.toString(),
+                        change_percent,
+                        time
+                    )
+                )
 
             }
 
             binding.recyclerStock.layoutManager = LinearLayoutManager(this)
-            binding.recyclerStock.adapter = StockAdapter(this , dataList.toMutableList())
+            binding.recyclerStock.adapter = StockAdapter(this, dataList.toMutableList())
 
 
         },
