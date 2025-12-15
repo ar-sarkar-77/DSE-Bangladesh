@@ -2,11 +2,18 @@ package com.anondo.dsebangladesh.views.adapter
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.anondo.dsebangladesh.R
 import com.anondo.dsebangladesh.data.offmodels.StockData
 import com.anondo.dsebangladesh.data.onmodels.Stock_Data_Class
@@ -14,9 +21,15 @@ import com.anondo.dsebangladesh.databinding.ItemBinding
 import com.anondo.dsebangladesh.reducecode.ReduceCode
 
 class StockAdapter(
+    var handleUser : handleUserClick,
     var context: Context,
     var stockData: MutableList<Stock_Data_Class>
 ) : RecyclerView.Adapter<StockAdapter.ViewHolder>(){
+
+    interface handleUserClick{
+        fun onFavClick()
+    }
+
 
     class ViewHolder(var binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -82,37 +95,24 @@ class StockAdapter(
 
                 }
 
-                /*this.imgFav.tag = "notFav"
-
                 this.imgFav.setOnClickListener {
 
-                    if (this.imgFav.tag == "notFav"){
-
-                        this.imgFav.tag = "Fav"
+                    if (status==0){
 
                         this.imgFav.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_filled))
 
-                        var dao = ReduceCode.database(context)
+                        update(id , 1)
 
-                        var stockData = StockData( id , name , price , change_price , change_percent , time , "1" )
-
-                        dao.Add_Stock(stockData)
 
                     }else{
 
-                        this.imgFav.tag = "notFav"
-
                         this.imgFav.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
 
-                        var dao = ReduceCode.database(context)
-
-                        var stockData = StockData( id , name , price , change_price , change_percent , time , "1" )
-
-                        dao.Delete_Stock(stockData)
+                        update(id , 0)
 
                     }
 
-                }*/
+                }
 
             }
 
@@ -123,5 +123,33 @@ class StockAdapter(
     override fun getItemCount(): Int {
         return stockData.size
     }
+
+    fun update(id : Int , status : Int){
+
+        var url = "https://arsarkar.xyz/apps/update.php?id=$id&status=$status"
+
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            { response ->
+
+                Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+
+            },
+            {
+
+            })
+
+        val queue : RequestQueue = Volley.newRequestQueue(context)
+        queue.add(stringRequest)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            handleUser.onFavClick()
+
+            }, 3000) // 6000 ms = 2 seconds
+
+
+    }
+
 
 }

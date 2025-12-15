@@ -125,7 +125,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="@dimen/_8sdp"
         tools:listitem="@layout/item"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
 </LinearLayout>

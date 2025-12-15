@@ -16,7 +16,7 @@ import com.anondo.dsebangladesh.reducecode.ReduceCode
 import com.anondo.dsebangladesh.views.adapter.StockAdapter
 import org.json.JSONArray
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , StockAdapter.handleUserClick {
 
     lateinit var binding : ActivityMainBinding
     var dataList : MutableList<Stock_Data_Class> = mutableListOf()
@@ -47,13 +47,20 @@ class MainActivity : AppCompatActivity() {
             loadData()
 
         }
+        binding.btnFav.setOnClickListener {
+
+            dataList.clear()
+
+        }
 
     }
 
     fun loadData(){
 
-        binding.lottieAnimation.visibility = View.VISIBLE
-        binding.recyclerStock.visibility = View.GONE
+        /*binding.lottieAnimation.visibility = View.VISIBLE
+        binding.recyclerStock.visibility = View.GONE*/
+
+        dataList.clear()
 
     val queue = Volley.newRequestQueue(this)
 
@@ -92,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+            dataList.sortByDescending { it.status }
             adapter()
 
         }, {
@@ -109,9 +117,13 @@ class MainActivity : AppCompatActivity() {
     fun adapter(){
 
         binding.recyclerStock.layoutManager = LinearLayoutManager(this)
-        binding.recyclerStock.adapter = StockAdapter(this, dataList )
+        binding.recyclerStock.adapter = StockAdapter( this , this, dataList )
 
 
+    }
+
+    override fun onFavClick() {
+        loadData()
     }
 
 }
