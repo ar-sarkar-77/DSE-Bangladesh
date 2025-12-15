@@ -46,11 +46,18 @@ class StockAdapter(
                 var change_price = it.change_price
                 var change_percent = it.change_percent
                 var time = it.time
+                var status = it.status
 
                 this.txtCompany.text = name
                 this.txtChange.text = change_price
                 this.txtPrice.text = "Price "+price
                 this.txtChangePercent.text = change_percent
+
+                if (status==0){
+                    this.imgFav.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star))
+                }else{
+                    this.imgFav.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_filled))
+                }
 
                 if (it.change_price.toFloat()>0){
 
@@ -75,7 +82,7 @@ class StockAdapter(
 
                 }
 
-                this.imgFav.tag = "notFav"
+                /*this.imgFav.tag = "notFav"
 
                 this.imgFav.setOnClickListener {
 
@@ -89,7 +96,7 @@ class StockAdapter(
 
                         var stockData = StockData( id , name , price , change_price , change_percent , time , "1" )
 
-                        dao.Add_Task(stockData)
+                        dao.Add_Stock(stockData)
 
                     }else{
 
@@ -101,11 +108,11 @@ class StockAdapter(
 
                         var stockData = StockData( id , name , price , change_price , change_percent , time , "1" )
 
-                        dao.Delete_Data(stockData)
+                        dao.Delete_Stock(stockData)
 
                     }
 
-                }
+                }*/
 
             }
 

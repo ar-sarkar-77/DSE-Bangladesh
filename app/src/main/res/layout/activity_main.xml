@@ -88,7 +88,7 @@
                 android:textColor="?attr/colorOnSurface"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnMarket"
+                android:id="@+id/btnFav"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_weight="1"
@@ -102,6 +102,18 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <!-- ================= RecyclerView ================= -->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_Animation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:visibility="visible"
+        />
+
 
     <!-- ================= RecyclerView ================= -->
     <androidx.recyclerview.widget.RecyclerView
@@ -112,6 +124,8 @@
         android:paddingTop="@dimen/_4sdp"
         android:clipToPadding="false"
         android:paddingHorizontal="@dimen/_8sdp"
-        tools:listitem="@layout/item"/>
+        tools:listitem="@layout/item"
+        android:visibility="visible"
+        />
 
 </LinearLayout>

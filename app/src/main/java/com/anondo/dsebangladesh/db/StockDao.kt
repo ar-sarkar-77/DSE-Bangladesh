@@ -11,14 +11,14 @@ import com.anondo.dsebangladesh.data.offmodels.StockData
 interface StockDao {
 
     @Insert
-    fun Add_Task(stock : StockData)
+    fun Add_Stock(stock : StockData)
 
     @Update
-    fun Edit_Task(stock : StockData)
+    fun Edit_Stock(stock : StockData)
 
     @Query("SELECT * FROM StockData")
-    fun Get_All_Task(): MutableList<StockData>
+    fun Get_All_Stock(): MutableList<StockData>
 
     @Delete
-    fun Delete_Data(stock : StockData)
+    fun Delete_Stock(stock : StockData)
 }

@@ -1,14 +1,18 @@
 package com.anondo.dsebangladesh.views.activity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.anondo.dsebangladesh.data.offmodels.StockData
 import com.anondo.dsebangladesh.data.onmodels.Stock_Data_Class
 import com.anondo.dsebangladesh.databinding.ActivityMainBinding
+import com.anondo.dsebangladesh.db.StockDao
+import com.anondo.dsebangladesh.reducecode.ReduceCode
 import com.anondo.dsebangladesh.views.adapter.StockAdapter
 import org.json.JSONArray
 
@@ -16,36 +20,40 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
     var dataList : MutableList<Stock_Data_Class> = mutableListOf()
+    var dataListss : MutableList<StockData> = mutableListOf()
+    lateinit var dao: StockDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        LoadData()
+        loadData()
 
         binding.btnGainer.setOnClickListener {
 
             dataList.sortByDescending { it.change_price.toFloat() }
-            LoadData()
+            adapter()
 
         }
         binding.btnLoser.setOnClickListener {
 
             dataList.sortBy { it.change_price.toFloat() }
-            LoadData()
-
+            adapter()
         }
         binding.btnAll.setOnClickListener {
 
             dataList.clear()
-            LoadData()
+            loadData()
 
         }
 
     }
 
-    fun LoadData(){
+    fun loadData(){
+
+        binding.lottieAnimation.visibility = View.VISIBLE
+        binding.recyclerStock.visibility = View.GONE
 
     val queue = Volley.newRequestQueue(this)
 
@@ -54,6 +62,9 @@ class MainActivity : AppCompatActivity() {
         "https://arsarkar.xyz/apps/get_dse_data.php",
         null,
         { responce: JSONArray ->
+
+            binding.lottieAnimation.visibility = View.GONE
+            binding.recyclerStock.visibility = View.VISIBLE
 
             for (i in 0..responce.length() - 1) {
 
@@ -65,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 val change_price = jsonObject.getDouble("change_price").toFloat() // float
                 val change_percent = jsonObject.getString("change_percent") // string
                 val time = jsonObject.getString("time") // timestamp string
+                val status = jsonObject.getInt("status") // status int
 
                 dataList.add(
                     Stock_Data_Class(
@@ -73,23 +85,33 @@ class MainActivity : AppCompatActivity() {
                         price.toString(),
                         change_price.toString(),
                         change_percent,
-                        time
+                        time,
+                        status
                     )
                 )
 
             }
 
-            binding.recyclerStock.layoutManager = LinearLayoutManager(this)
-            binding.recyclerStock.adapter = StockAdapter(this, dataList.toMutableList())
+            adapter()
 
+        }, {
 
-        },
-        {
+            binding.lottieAnimation.visibility = View.VISIBLE
+            binding.recyclerStock.visibility = View.GONE
+
             Toast.makeText(this, "Error loading data", Toast.LENGTH_SHORT).show()
         })
 
     queue.add(jsonArrayRequest)
 
-}
+    }
+
+    fun adapter(){
+
+        binding.recyclerStock.layoutManager = LinearLayoutManager(this)
+        binding.recyclerStock.adapter = StockAdapter(this, dataList )
+
+
+    }
 
 }

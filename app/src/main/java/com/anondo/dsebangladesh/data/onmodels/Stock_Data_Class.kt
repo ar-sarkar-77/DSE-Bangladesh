@@ -6,5 +6,6 @@ data class Stock_Data_Class (
     val price : String,
     val change_price : String,
     val change_percent : String,
-    val time : String
+    val time : String,
+    val status : Int
 )
