@@ -1,6 +1,7 @@
 package com.anondo.dsebangladesh.views.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,7 @@ import com.anondo.dsebangladesh.data.offmodels.StockData
 import com.anondo.dsebangladesh.data.onmodels.Stock_Data_Class
 import com.anondo.dsebangladesh.databinding.ItemBinding
 import com.anondo.dsebangladesh.reducecode.ReduceCode
+import com.anondo.dsebangladesh.views.activity.SetNotificationActivity
 
 class StockAdapter(
     var handleUser : handleUserClick,
@@ -111,6 +113,12 @@ class StockAdapter(
                         update(id , 0)
 
                     }
+
+                }
+
+                this.imgNotification.setOnClickListener{
+
+                    context.startActivity(Intent(context , SetNotificationActivity::class.java))
 
                 }
 
