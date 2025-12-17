@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
     }
 
-    fun loadData() {
+    private fun loadData() {
 
         dataList.clear()
 

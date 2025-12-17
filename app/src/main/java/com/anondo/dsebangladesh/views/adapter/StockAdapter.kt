@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -118,7 +119,15 @@ class StockAdapter(
 
                 this.imgNotification.setOnClickListener{
 
-                    context.startActivity(Intent(context , SetNotificationActivity::class.java))
+                    var intent = Intent(context , SetNotificationActivity::class.java)
+                    intent.putExtra("id" , id)
+                    intent.putExtra("name" , name)
+                    intent.putExtra("price" , price)
+                    intent.putExtra("change_price" , change_price)
+                    intent.putExtra("change_percent" , change_percent)
+                    intent.putExtra("time" , time)
+                    Log.d("time" , time)
+                    context.startActivity(intent)
 
                 }
 
