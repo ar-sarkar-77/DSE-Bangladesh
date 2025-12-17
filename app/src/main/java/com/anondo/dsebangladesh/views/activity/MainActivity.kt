@@ -1,10 +1,13 @@
 package com.anondo.dsebangladesh.views.activity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
@@ -20,8 +23,9 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
     lateinit var binding: ActivityMainBinding
     var dataList: MutableList<Stock_Data_Class> = mutableListOf()
+    var dataLists: MutableList<Stock_Data_Class> = mutableListOf()
     var dataListss: MutableList<Stock_Data_Class> = mutableListOf()
-    lateinit var dao: StockDao
+    lateinit var dao : StockDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
             adapter(dataList)
 
         }
+
         binding.btnLoser.setOnClickListener {
 
             loadingAnim("no")
@@ -46,17 +51,28 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
             adapter(dataList)
 
         }
+
         binding.btnAll.setOnClickListener {
 
             dataList.clear()
             loadData()
 
         }
+
         binding.btnFav.setOnClickListener {
 
-            search()
+            searchFavorite()
 
         }
+
+        binding.imgSearch.setOnClickListener {
+
+            binding.topAppBar.visibility = View.GONE
+            binding.textField.visibility = View.VISIBLE
+
+        }
+
+        edSearchEvent()
 
     }
 
@@ -122,7 +138,7 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
     }
 
-    fun search() {
+    fun searchFavorite() {
 
         val queue = Volley.newRequestQueue(this@MainActivity)
 
@@ -183,6 +199,81 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
     }
 
+
+    private fun edSearchEvent() {
+
+        binding.searchName.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence?, start: Int, count: Int, after: Int
+            ) {}
+
+            override fun onTextChanged(
+                s: CharSequence?, start: Int, before: Int, count: Int
+            ) {
+
+                val name = binding.searchName.text.toString().uppercase()
+                loadDataForSearch(name)
+
+            }
+        })
+    }
+
+
+    private fun loadDataForSearch( name : String){
+
+        dataLists.clear()
+
+        val queue = Volley.newRequestQueue(this)
+
+        var jsonArrayRequest = JsonArrayRequest(
+            Request.Method.GET,
+            "https://arsarkar.xyz/apps/search_by_company_name.php?name=$name",
+            null,
+            { responce: JSONArray ->
+
+                    for (i in 0..responce.length() - 1) {
+
+                        var jsonObject = responce.getJSONObject(i)
+
+                        val id = jsonObject.getInt("id")  // int
+                        val name = jsonObject.getString("name") // string
+                        val price = jsonObject.getDouble("price").toFloat() // float
+                        val change_price = jsonObject.getDouble("change_price").toFloat() // float
+                        val change_percent = jsonObject.getString("change_percent") // string
+                        val time = jsonObject.getString("time") // timestamp string
+                        val status = jsonObject.getInt("status") // status int
+
+                        dataLists.add(
+                            Stock_Data_Class(
+                                id,
+                                name,
+                                price.toString(),
+                                change_price.toString(),
+                                change_percent,
+                                time,
+                                status
+                            )
+                        )
+
+                    }
+
+                adapter(dataLists)
+
+            }, {
+                Toast.makeText(this, "Error loading data", Toast.LENGTH_SHORT).show()
+            })
+
+        queue.add(jsonArrayRequest)
+
+
+    }
+
+
+
+
     fun loadingAnim(yesOrno : String){
 
         if (yesOrno=="yes"){
@@ -199,7 +290,9 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
         }
 
-    }fun noDataAnim(){
+    }
+
+    fun noDataAnim(){
 
             binding.lottieAnimation.setAnimation(R.raw.no_data)
             binding.lottieAnimation.visibility = View.VISIBLE
@@ -207,8 +300,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
 
     }
-
-
 
 
     override fun onFavClick() {

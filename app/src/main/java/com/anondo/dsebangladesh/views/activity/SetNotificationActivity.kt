@@ -57,13 +57,13 @@ class SetNotificationActivity : AppCompatActivity() {
 
         }
 
-        loadData(id , urlOpen)
-        loadData(id , urlClose)
+        loadData( urlOpen)
+        loadData(urlClose)
 
 
     }
 
-    private fun loadData(id : Int , url : String){
+    private fun loadData(url : String){
 
         val queue = Volley.newRequestQueue(this)
 
