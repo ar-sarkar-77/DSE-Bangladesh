@@ -13,6 +13,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.anondo.dsebangladesh.R
+import com.anondo.dsebangladesh.data.offmodels.StockData
 import com.anondo.dsebangladesh.data.onmodels.Stock_Data_Class
 import com.anondo.dsebangladesh.databinding.ActivityMainBinding
 import com.anondo.dsebangladesh.db.StockDao
@@ -114,6 +115,21 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
                         )
                     )
 
+                    dao.DeleteAllStock()
+
+                    var stockData =
+                        StockData(
+                            id,
+                            name,
+                            price.toString(),
+                            change_price.toString(),
+                            change_price.toString(),
+                            time,
+                            status.toString()
+                        )
+
+                    dao.Add_Stock(stockData)
+
                 }
 
                 dataList.sortByDescending { it.status }
@@ -121,9 +137,11 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
             }, {
 
-                loadingAnim("yes")
+                loadingAnim("no")
 
-                Toast.makeText(this, "Error loading data", Toast.LENGTH_SHORT).show()
+                var stocksData : MutableList<StockData> = dao.Get_All_Stock()
+
+                //Toast.makeText(this, "Error loading data", Toast.LENGTH_SHORT).show()
             })
 
         queue.add(jsonArrayRequest)
@@ -270,8 +288,6 @@ class MainActivity : AppCompatActivity(), StockAdapter.handleUserClick {
 
 
     }
-
-
 
 
     fun loadingAnim(yesOrno : String){

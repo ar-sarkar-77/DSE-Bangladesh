@@ -9,11 +9,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class StockData(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val name: String,
-    val price: String,
-    val change_price: String,
-    val change_percent: String,
-    val time: String,
-    val status: String
+    var id: Int,
+    var name: String,
+    var price: String,
+    var change_price: String,
+    var change_percent: String,
+    var time: String,
+    var status: String
 ) : Parcelable
